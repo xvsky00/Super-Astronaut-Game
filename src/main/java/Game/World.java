@@ -5,14 +5,15 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class World {
     public static Pane layout = new Pane();
     public static PlayerCharacter playerCharacter;
+    public static EnemyCharacter enemyCharacter;
     public void start(Stage window) {
-        playerCharacter = new PlayerCharacter();
 
         Scene scene = new Scene(layout);
         Camera camera = new PerspectiveCamera();
@@ -20,16 +21,18 @@ public class World {
 
         window.setScene(scene);
         initContent();
-        layout.getChildren().add(playerCharacter.create(scene));
+        playerCharacter = new PlayerCharacter(scene);
+        enemyCharacter = new EnemyCharacter(scene);
+        layout.getChildren().add(playerCharacter.getCharacter());
+        layout.getChildren().add(enemyCharacter.getCharacter());
     }
 
-
-
     private void initContent(){
-        Image backgroundImg = new Image("file:background.jpg");
+        Image backgroundImg = new Image("file:background_game.png");
         ImageView backgroundIV = new ImageView(backgroundImg);
         backgroundIV.setFitHeight(14*Game.BLOCK_SIZE);
         backgroundIV.setFitWidth(212*Game.BLOCK_SIZE);
+        layout.getChildren().add(backgroundIV);
 
         int levelNumber = 0;
         int levelWidth = MapData.levels[levelNumber][0].length() * Game.BLOCK_SIZE;

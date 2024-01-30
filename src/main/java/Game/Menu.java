@@ -20,6 +20,7 @@ public class Menu {
 
         VBox buttons = new VBox();
         buttons.setSpacing(20);
+        buttons.setAlignment(Pos.CENTER);
         buttons.getChildren().add(titleOfTheGame());
         buttons.getChildren().add(startButton(window, world));
         buttons.getChildren().add(settingsButton());
@@ -39,8 +40,8 @@ public class Menu {
 
         Button button = new Button();
         button.setText("Start");
-        button.setPrefWidth(500);
-        button.setPrefHeight(100);
+        button.setPrefWidth(400);
+        button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) ->
                 world.start(window)
@@ -51,8 +52,8 @@ public class Menu {
     private Button settingsButton() {
         Button button = new Button();
         button.setText("Settings");
-        button.setPrefWidth(500);
-        button.setPrefHeight(100);
+        button.setPrefWidth(400);
+        button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         return button;
     }
@@ -60,8 +61,8 @@ public class Menu {
     private Button quitButton(Stage window) {
         Button button = new Button();
         button.setText("Quit");
-        button.setPrefWidth(500);
-        button.setPrefHeight(100);
+        button.setPrefWidth(400);
+        button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) ->
                 window.close()

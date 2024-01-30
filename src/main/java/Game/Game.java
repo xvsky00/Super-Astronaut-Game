@@ -13,7 +13,7 @@ public class Game extends Application {
         Menu menu = new Menu();
         menu.start(window, world);
         window.setTitle("Super Astronaut Game");
-        window.setHeight(900);
+        window.setHeight(15 * BLOCK_SIZE - 6);
         window.setWidth(1000);
         window.show();
     }
