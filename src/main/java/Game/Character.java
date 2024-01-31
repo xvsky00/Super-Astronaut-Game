@@ -22,6 +22,7 @@ public abstract class Character {
 
     protected abstract void move(Scene scene);
     public abstract ImageView getCharacter();
+
     protected void runAnimation(ImageView character, Map<Double, Image> images) {
         this.numberOfAnimation = this.numberOfAnimation + 0.5;
 
@@ -35,7 +36,7 @@ public abstract class Character {
 
     protected void createImagesForRunning(Map<Double, Image> images, Image run) {
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 12; i++) {
             PixelReader reader = run.getPixelReader();
             WritableImage frame = new WritableImage(reader, i * Game.PLAYER_SIZE / 2, 0, Game.PLAYER_SIZE / 2, Game.PLAYER_SIZE / 2);
             images.put((double) i, frame);

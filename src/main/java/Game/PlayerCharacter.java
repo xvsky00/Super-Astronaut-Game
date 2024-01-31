@@ -27,7 +27,8 @@ public class PlayerCharacter extends Character {
         this.playerCharacter.setTranslateY(8 * Game.BLOCK_SIZE);
         this.playerCharacter.setRotate(0);
         move(scene);
-        this.speedOfCharacter = 9;
+        this.speedOfCharacter = 8;
+        World.layout.getChildren().add(getCharacter());
     }
 
     public ImageView getCharacter() {
@@ -79,6 +80,14 @@ public class PlayerCharacter extends Character {
                         playerCharacter.setImage(images.get((double) 13));
                         playerCharacter.setTranslateY(playerCharacter.getTranslateY() + speedOfCharacter);
                     }
+                }
+
+                if(playerCharacter.getTranslateY() > 14 * Game.BLOCK_SIZE) {
+                    stop();
+                    Game.retryWindow.start();
+                } else if(playerCharacter.getTranslateX() > 198 * Game.BLOCK_SIZE) {
+                    stop();
+                    Game.winWindow.start();
                 }
             }
         }.start();

@@ -6,11 +6,15 @@ import javafx.stage.Stage;
 public class Game extends Application {
     public static final int BLOCK_SIZE = 45;
     public static final int PLAYER_SIZE = 64;
+    public static RetryWindow retryWindow;
+    public static WinWindow winWindow;
 
     @Override
     public void start(Stage window) {
         World world = new World();
         Menu menu = new Menu();
+        retryWindow = new RetryWindow(window, world);
+        winWindow = new WinWindow(window, world, menu);
         menu.start(window, world);
         window.setTitle("Super Astronaut Game");
         window.setHeight(15 * BLOCK_SIZE - 6);

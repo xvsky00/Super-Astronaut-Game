@@ -1,27 +1,36 @@
 package Game;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.control.Button;
-import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+public class WinWindow {
+    private final Stage window;
+    private final World world;
+    private final Menu menu;
 
-public class Menu {
-    public void start(Stage window, World world) {
+    public WinWindow(Stage window, World world, Menu menu) {
+        this.window = window;
+        this.world = world;
+        this.menu = menu;
+    }
+
+    public void start() {
         GridPane layout = new GridPane();
         layout.setPrefSize(1000, 900);
 
         VBox buttons = new VBox();
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
-        buttons.getChildren().add(titleOfTheGame());
-        buttons.getChildren().add(startButton(window, world));
-        buttons.getChildren().add(quitButton(window));
+        buttons.getChildren().add(failedLabel());
+        buttons.getChildren().add(mainMenuButton(this.window, this.world));
+        buttons.getChildren().add(quitButton());
         buttons.getChildren().add(new Label("Designed by stockgiu / Freepik"));
 
         layout.getChildren().add(buttons);
@@ -30,36 +39,37 @@ public class Menu {
 
         Scene scene = new Scene(layout);
 
-        window.setScene(scene);
+        this.window.setScene(scene);
     }
 
-    private Button startButton(Stage window, World world) {
+    private Button mainMenuButton(Stage window, World world) {
 
         Button button = new Button();
-        button.setText("Start");
+        button.setText("Main Menu");
         button.setPrefWidth(400);
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
-        button.setOnAction((event) ->
-                world.start(window)
+        button.setOnAction((event) -> {
+                    this.menu.start(window, world);
+                }
         );
         return button;
     }
 
-    private Button quitButton(Stage window) {
+    private Button quitButton() {
         Button button = new Button();
         button.setText("Quit");
         button.setPrefWidth(400);
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) ->
-                window.close()
+                this.window.close()
         );
         return button;
     }
 
-    private Label titleOfTheGame() {
-        Label title = new Label("Super Astronaut Game");
+    private Label failedLabel() {
+        Label title = new Label("You won!");
         title.setPrefSize(500, 100);
         title.setFont(new Font("Book Antiqua", 40));
         title.setAlignment(Pos.CENTER);
@@ -88,3 +98,4 @@ public class Menu {
         return new Background(backgroundImage);
     }
 }
+
