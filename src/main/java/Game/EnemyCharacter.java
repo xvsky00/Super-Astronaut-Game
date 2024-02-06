@@ -5,6 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,8 +63,9 @@ public class EnemyCharacter extends Character {
                     Game.retryWindow.start();
                 }
 
-                if(enemyCharacter.getTranslateY() > 16 * Game.BLOCK_SIZE) {
+                if (enemyCharacter.getTranslateY() > 16 * Game.BLOCK_SIZE) {
                     stop();
+                    Game.retryWindow.start();
                 }
             }
         }.start();

@@ -12,13 +12,9 @@ import javafx.stage.Stage;
 
 public class WinWindow {
     private final Stage window;
-    private final World world;
-    private final Menu menu;
 
-    public WinWindow(Stage window, World world, Menu menu) {
+    public WinWindow(Stage window) {
         this.window = window;
-        this.world = world;
-        this.menu = menu;
     }
 
     public void start() {
@@ -29,7 +25,7 @@ public class WinWindow {
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
         buttons.getChildren().add(failedLabel());
-        buttons.getChildren().add(mainMenuButton(this.window, this.world));
+        buttons.getChildren().add(mainMenuButton(this.window));
         buttons.getChildren().add(quitButton());
         buttons.getChildren().add(new Label("Designed by stockgiu / Freepik"));
 
@@ -42,7 +38,7 @@ public class WinWindow {
         this.window.setScene(scene);
     }
 
-    private Button mainMenuButton(Stage window, World world) {
+    private Button mainMenuButton(Stage window) {
 
         Button button = new Button();
         button.setText("Main Menu");
@@ -50,7 +46,7 @@ public class WinWindow {
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) -> {
-                    this.menu.start(window, world);
+                    Game.menu.start(window);
                 }
         );
         return button;

@@ -12,11 +12,9 @@ import javafx.stage.Stage;
 
 public class RetryWindow {
     private final Stage window;
-    private final World world;
 
-    public RetryWindow(Stage window, World world) {
+    public RetryWindow(Stage window) {
         this.window = window;
-        this.world = world;
     }
 
     public void start() {
@@ -48,7 +46,7 @@ public class RetryWindow {
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) -> {
-                    this.world.start(this.window);
+                    Game.world.start(this.window);
                 }
         );
         return button;

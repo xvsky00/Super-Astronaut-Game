@@ -48,10 +48,10 @@ public abstract class Character {
 
         switch (intersectionLine) {
             case UP:
-                intersectLine = new Rectangle2D(character.getTranslateX(), character.getTranslateY(), Game.PLAYER_SIZE - 30, 1);
+                intersectLine = new Rectangle2D(character.getTranslateX(), character.getTranslateY() - 10, Game.PLAYER_SIZE - 25, 1);
                 break;
             case DOWN:
-                intersectLine = new Rectangle2D(character.getTranslateX(), character.getTranslateY() + Game.PLAYER_SIZE - 1 - 10, Game.PLAYER_SIZE - 30, 1);
+                intersectLine = new Rectangle2D(character.getTranslateX(), character.getTranslateY() + Game.PLAYER_SIZE - 1 - 12, Game.PLAYER_SIZE - 30, 1);
                 break;
             case LEFT:
                 intersectLine = new Rectangle2D(character.getTranslateX() - 10, character.getTranslateY() + 20, 1, Game.PLAYER_SIZE - 40);

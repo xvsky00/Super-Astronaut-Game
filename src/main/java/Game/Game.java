@@ -8,14 +8,16 @@ public class Game extends Application {
     public static final int PLAYER_SIZE = 64;
     public static RetryWindow retryWindow;
     public static WinWindow winWindow;
+    public static World world;
+    public static Menu menu;
 
     @Override
     public void start(Stage window) {
-        World world = new World();
-        Menu menu = new Menu();
-        retryWindow = new RetryWindow(window, world);
-        winWindow = new WinWindow(window, world, menu);
-        menu.start(window, world);
+        world = new World();
+        menu = new Menu();
+        retryWindow = new RetryWindow(window);
+        winWindow = new WinWindow(window);
+        menu.start(window);
         window.setTitle("Super Astronaut Game");
         window.setHeight(15 * BLOCK_SIZE - 6);
         window.setWidth(1000);

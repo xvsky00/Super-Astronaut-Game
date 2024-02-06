@@ -14,6 +14,8 @@ public class PlayerCharacter extends Character {
     private final Map<Double, Image> images;
     private final double speedOfCharacter;
 
+    private static double jumpLimit;
+
     public PlayerCharacter(Scene scene) {
         this.images = new HashMap<>();
         Image run = new Image("file:Run.png");
@@ -29,6 +31,7 @@ public class PlayerCharacter extends Character {
         move(scene);
         this.speedOfCharacter = 8;
         World.layout.getChildren().add(getCharacter());
+        jumpLimit = 0;
     }
 
     public ImageView getCharacter() {
@@ -53,7 +56,7 @@ public class PlayerCharacter extends Character {
                     if (noCollide(IntersectionLine.LEFT, playerCharacter)) {
                         playerCharacter.setTranslateX(playerCharacter.getTranslateX() - speedOfCharacter);
 
-                        if (playerCharacter.getTranslateX() - scene.getCamera().getTranslateX() <= 4 * speedOfCharacter) {
+                        if (playerCharacter.getTranslateX() - scene.getCamera().getTranslateX() <= 8 * Game.BLOCK_SIZE && playerCharacter.getTranslateX() > 8 * Game.BLOCK_SIZE) {
                             scene.getCamera().translateXProperty().set(scene.getCamera().translateXProperty().get() - speedOfCharacter);
                         }
                     }
@@ -66,15 +69,24 @@ public class PlayerCharacter extends Character {
                     if (noCollide(IntersectionLine.RIGHT, playerCharacter)) {
                         playerCharacter.setTranslateX(playerCharacter.getTranslateX() + speedOfCharacter);
 
-                        if (playerCharacter.getTranslateX() - scene.getCamera().getTranslateX() >= scene.getWidth() - 2 * speedOfCharacter - Game.PLAYER_SIZE) {
+                        if (playerCharacter.getTranslateX() - scene.getCamera().getTranslateX() >= scene.getWidth() - 7 * Game.BLOCK_SIZE - Game.PLAYER_SIZE && playerCharacter.getTranslateX() < 205 * Game.BLOCK_SIZE) {
                             scene.getCamera().translateXProperty().set(scene.getCamera().translateXProperty().get() + speedOfCharacter);
                         }
                     }
                 }
 
-                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter)) {
+                if(!noCollide(IntersectionLine.DOWN, playerCharacter)) {
+                    jumpLimit = 0;
+                } else if (!noCollide(IntersectionLine.UP, playerCharacter)) {
+                    jumpLimit = 4.5 * Game.BLOCK_SIZE;
+                }
+
+                System.out.println(jumpLimit);
+
+                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpLimit < 4.5 * Game.BLOCK_SIZE) {
                     playerCharacter.setImage(images.get((double) 12));
                     playerCharacter.setTranslateY(playerCharacter.getTranslateY() - speedOfCharacter);
+                    jumpLimit = jumpLimit + speedOfCharacter;
                 } else {
                     if (noCollide(IntersectionLine.DOWN, playerCharacter)) {
                         playerCharacter.setImage(images.get((double) 13));
