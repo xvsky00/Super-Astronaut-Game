@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class WinWindow {
+public class WinWindow extends Window{
     private final Stage window;
 
     public WinWindow(Stage window) {
@@ -31,7 +31,7 @@ public class WinWindow {
 
         layout.getChildren().add(buttons);
         layout.setAlignment(Pos.CENTER);
-        layout.setBackground(background());
+        layout.setBackground(Window.background());
 
         Scene scene = new Scene(layout);
 
@@ -46,7 +46,7 @@ public class WinWindow {
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) -> {
-                    Game.menu.start(window);
+                    Game.menu.start();
                 }
         );
         return button;
@@ -71,27 +71,6 @@ public class WinWindow {
         title.setAlignment(Pos.CENTER);
         title.setTextFill(Color.web("#00008B"));
         return title;
-    }
-
-    private Background background() {
-        Image imageFile = new Image("file:background.jpg");
-
-        BackgroundImage backgroundImage = new BackgroundImage(
-                imageFile,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(
-                        100,
-                        100,
-                        true,
-                        true,
-                        true,
-                        true
-                )
-        );
-
-        return new Background(backgroundImage);
     }
 }
 

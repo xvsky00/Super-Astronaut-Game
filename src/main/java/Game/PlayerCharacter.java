@@ -75,7 +75,7 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-                if(!noCollide(IntersectionLine.DOWN, playerCharacter)) {
+                if (!noCollide(IntersectionLine.DOWN, playerCharacter)) {
                     jumpLimit = 0;
                 } else if (!noCollide(IntersectionLine.UP, playerCharacter)) {
                     jumpLimit = 4.5 * Game.BLOCK_SIZE;
@@ -94,10 +94,10 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-                if(playerCharacter.getTranslateY() > 14 * Game.BLOCK_SIZE) {
+                if (playerCharacter.getTranslateY() > 14 * Game.BLOCK_SIZE) {
                     stop();
                     Game.retryWindow.start();
-                } else if(playerCharacter.getTranslateX() > 198 * Game.BLOCK_SIZE) {
+                } else if (playerCharacter.getTranslateX() > 198 * Game.BLOCK_SIZE) {
                     stop();
                     Game.winWindow.start();
                 }

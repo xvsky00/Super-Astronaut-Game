@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class RetryWindow {
+public class RetryWindow extends Window {
     private final Stage window;
 
     public RetryWindow(Stage window) {
@@ -31,7 +31,7 @@ public class RetryWindow {
 
         layout.getChildren().add(buttons);
         layout.setAlignment(Pos.CENTER);
-        layout.setBackground(background());
+        layout.setBackground(Window.background());
 
         Scene scene = new Scene(layout);
 
@@ -71,26 +71,5 @@ public class RetryWindow {
         title.setAlignment(Pos.CENTER);
         title.setTextFill(Color.web("#00008B"));
         return title;
-    }
-
-    private Background background() {
-        Image imageFile = new Image("file:background.jpg");
-
-        BackgroundImage backgroundImage = new BackgroundImage(
-                imageFile,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(
-                        100,
-                        100,
-                        true,
-                        true,
-                        true,
-                        true
-                )
-        );
-
-        return new Background(backgroundImage);
     }
 }

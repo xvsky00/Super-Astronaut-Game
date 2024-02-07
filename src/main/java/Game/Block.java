@@ -13,6 +13,7 @@ public class Block extends Pane {
     public enum BlockType {
         PLATFORM, BRICK, BONUS, PIPE_TOP, PIPE_BOTTOM, INVISIBLE_BLOCK, STONE
     }
+
     public Block(BlockType blockType, int x, int y) {
         this.blocksImg = new Image(getClass().getResourceAsStream("/1.png"));
         this.block = new ImageView(blocksImg);
