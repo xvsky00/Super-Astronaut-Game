@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class WinWindow extends Window{
+public class WinWindow extends Window {
     private final Stage window;
 
     public WinWindow(Stage window) {
@@ -25,7 +25,7 @@ public class WinWindow extends Window{
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
         buttons.getChildren().add(failedLabel());
-        buttons.getChildren().add(mainMenuButton(this.window));
+        buttons.getChildren().add(newGameButton(this.window));
         buttons.getChildren().add(quitButton());
         buttons.getChildren().add(new Label("Designed by stockgiu / Freepik"));
 
@@ -38,15 +38,16 @@ public class WinWindow extends Window{
         this.window.setScene(scene);
     }
 
-    private Button mainMenuButton(Stage window) {
+    private Button newGameButton(Stage window) {
 
         Button button = new Button();
-        button.setText("Main Menu");
+        button.setText("New Game");
         button.setPrefWidth(400);
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) -> {
-                    Game.menu.start();
+                    Game.world.reset(Game.world.getScene());
+                    this.window.setScene(Game.world.getScene());
                 }
         );
         return button;

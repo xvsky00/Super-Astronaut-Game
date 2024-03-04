@@ -46,7 +46,8 @@ public class RetryWindow extends Window {
         button.setPrefHeight(80);
         button.setFont(new Font("Book Antiqua", 30));
         button.setOnAction((event) -> {
-                    Game.world.start(this.window);
+                    Game.world.reset(Game.world.getScene());
+                    this.window.setScene(Game.world.getScene());
                 }
         );
         return button;

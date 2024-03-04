@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+
 import java.util.Map;
 
 public abstract class Character {
@@ -15,12 +16,15 @@ public abstract class Character {
     }
 
     private double numberOfAnimation;
+    public boolean alive;
 
     public Character() {
         this.numberOfAnimation = 0.0;
+        this.alive = true;
     }
 
     protected abstract void move(Scene scene);
+
     public abstract ImageView getCharacter();
 
     protected void runAnimation(ImageView character, Map<Double, Image> images) {
@@ -69,5 +73,9 @@ public abstract class Character {
         }
 
         return true;
+    }
+
+    public void isAlive(boolean a) {
+        this.alive = a;
     }
 }

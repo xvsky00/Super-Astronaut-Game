@@ -15,21 +15,35 @@ public class World {
     public static EnemyCharacter enemyCharacter_2;
     public static EnemyCharacter enemyCharacter_3;
     public static EnemyCharacter enemyCharacter_4;
+    public static Scene scene;
 
 
     public void start(Stage window) {
         layout = new Pane();
-        Scene scene = new Scene(layout);
+        scene = new Scene(layout);
         Camera camera = new PerspectiveCamera();
         scene.setCamera(camera);
 
         window.setScene(scene);
         initContent();
-        enemyCharacter_1 = new EnemyCharacter(scene, 49 * Game.BLOCK_SIZE, 11 * Game.BLOCK_SIZE);
-        enemyCharacter_2 = new EnemyCharacter(scene, 31 * Game.BLOCK_SIZE, 11 * Game.BLOCK_SIZE);
-        enemyCharacter_3 = new EnemyCharacter(scene, 41 * Game.BLOCK_SIZE, 11 * Game.BLOCK_SIZE);
-        enemyCharacter_4 = new EnemyCharacter(scene, 25 * Game.BLOCK_SIZE, 11 * Game.BLOCK_SIZE);
+        enemyCharacter_1 = new EnemyCharacter(scene, 49 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        enemyCharacter_2 = new EnemyCharacter(scene, 31 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        enemyCharacter_3 = new EnemyCharacter(scene, 41 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        enemyCharacter_4 = new EnemyCharacter(scene, 25 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         playerCharacter = new PlayerCharacter(scene);
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void reset(Scene scene) {
+        scene.getCamera().setTranslateX(0);
+        enemyCharacter_1.reset(scene, 49 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        enemyCharacter_2.reset(scene, 31 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        enemyCharacter_3.reset(scene, 41 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        enemyCharacter_4.reset(scene, 25 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
+        playerCharacter.reset(scene);
     }
 
     private void initContent() {

@@ -13,7 +13,6 @@ public class PlayerCharacter extends Character {
     private final ImageView playerCharacter;
     private final Map<Double, Image> images;
     private final double speedOfCharacter;
-
     private static double jumpLimit;
 
     public PlayerCharacter(Scene scene) {
@@ -81,8 +80,6 @@ public class PlayerCharacter extends Character {
                     jumpLimit = 4.5 * Game.BLOCK_SIZE;
                 }
 
-                System.out.println(jumpLimit);
-
                 if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpLimit < 4.5 * Game.BLOCK_SIZE) {
                     playerCharacter.setImage(images.get((double) 12));
                     playerCharacter.setTranslateY(playerCharacter.getTranslateY() - speedOfCharacter);
@@ -100,8 +97,20 @@ public class PlayerCharacter extends Character {
                 } else if (playerCharacter.getTranslateX() > 198 * Game.BLOCK_SIZE) {
                     stop();
                     Game.winWindow.start();
+                } else if (!alive) {
+                    stop();
                 }
             }
         }.start();
+    }
+
+    public void reset(Scene scene) {
+        this.playerCharacter.setImage(this.images.get(0.0));
+        this.playerCharacter.setScaleX(2.0);
+        this.playerCharacter.setTranslateX(2 * Game.BLOCK_SIZE);
+        this.playerCharacter.setTranslateY(8 * Game.BLOCK_SIZE);
+        this.playerCharacter.setRotate(0);
+        this.alive = true;
+        this.move(scene);
     }
 }

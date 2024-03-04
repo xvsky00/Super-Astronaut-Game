@@ -54,17 +54,21 @@ public class EnemyCharacter extends Character {
                     enemyCharacter.setTranslateY(enemyCharacter.getTranslateY() + speedOfCharacter);
                 } else if (CollideWithPlayerCharacter(IntersectionLine.UP, World.playerCharacter.getCharacter()) && !CollideWithPlayerCharacter(IntersectionLine.RIGHT, World.playerCharacter.getCharacter()) && !CollideWithPlayerCharacter(IntersectionLine.LEFT, World.playerCharacter.getCharacter())) {
                     stop();
+                    isAlive(false);
                     enemyCharacter.setScaleY(1.0);
                     enemyCharacter.setTranslateY(enemyCharacter.getTranslateY() + 16);
                 }
 
                 if (CollideWithPlayerCharacter(IntersectionLine.RIGHT, World.playerCharacter.getCharacter()) | CollideWithPlayerCharacter(IntersectionLine.LEFT, World.playerCharacter.getCharacter())) {
                     stop();
+                    World.playerCharacter.isAlive(false);
+                    isAlive(false);
                     Game.retryWindow.start();
                 }
 
                 if (enemyCharacter.getTranslateY() > 16 * Game.BLOCK_SIZE) {
                     stop();
+                    isAlive(false);
                     Game.retryWindow.start();
                 }
             }
@@ -88,5 +92,18 @@ public class EnemyCharacter extends Character {
         }
 
         return playerIntersectLine.intersects(intersectLine);
+    }
+
+    public void reset(Scene scene, int xCord, int yCord) {
+        this.enemyCharacter.setImage(this.images.get(0.0));
+        this.enemyCharacter.setTranslateX(xCord);
+        this.enemyCharacter.setTranslateY(yCord);
+        this.enemyCharacter.setRotate(0);
+        this.enemyCharacter.setScaleX(-2.0);
+        this.enemyCharacter.setScaleY(2.0);
+        if (!this.alive) {
+            this.alive = true;
+            this.move(scene);
+        }
     }
 }
