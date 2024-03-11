@@ -18,14 +18,16 @@ public class World {
     public static Scene scene;
 
 
-    public void start(Stage window) {
+    public void prepare(Stage window) {
         layout = new Pane();
         scene = new Scene(layout);
         Camera camera = new PerspectiveCamera();
         scene.setCamera(camera);
-
-        window.setScene(scene);
         initContent();
+    }
+
+    public void start(Stage window) {
+        window.setScene(scene);
         enemyCharacter_1 = new EnemyCharacter(scene, 49 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         enemyCharacter_2 = new EnemyCharacter(scene, 31 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         enemyCharacter_3 = new EnemyCharacter(scene, 41 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);

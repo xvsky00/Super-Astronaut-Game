@@ -10,15 +10,14 @@ public class Game extends Application {
     public static WinWindow winWindow;
     public static World world;
     public static Menu menu;
-    public static Loader loader;
 
     @Override
     public void start(Stage window) {
         world = new World();
+        world.prepare(window);
         menu = new Menu(window);
         retryWindow = new RetryWindow(window);
         winWindow = new WinWindow(window);
-        loader = new Loader();
         menu.start();
         window.setTitle("Super Astronaut Game");
         window.setHeight(15 * BLOCK_SIZE - 6);

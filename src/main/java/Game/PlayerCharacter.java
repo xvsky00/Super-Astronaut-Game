@@ -13,7 +13,7 @@ public class PlayerCharacter extends Character {
     private final ImageView playerCharacter;
     private final Map<Double, Image> images;
     private final double speedOfCharacter;
-    private static double jumpLimit;
+    private static double jumpHeight;
 
     public PlayerCharacter(Scene scene) {
         this.images = new HashMap<>();
@@ -30,7 +30,7 @@ public class PlayerCharacter extends Character {
         move(scene);
         this.speedOfCharacter = 8;
         World.layout.getChildren().add(getCharacter());
-        jumpLimit = 0;
+        jumpHeight = 0;
     }
 
     public ImageView getCharacter() {
@@ -75,15 +75,15 @@ public class PlayerCharacter extends Character {
                 }
 
                 if (!noCollide(IntersectionLine.DOWN, playerCharacter)) {
-                    jumpLimit = 0;
+                    jumpHeight = 0;
                 } else if (!noCollide(IntersectionLine.UP, playerCharacter)) {
-                    jumpLimit = 4.5 * Game.BLOCK_SIZE;
+                    jumpHeight = 4.5 * Game.BLOCK_SIZE;
                 }
 
-                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpLimit < 4.5 * Game.BLOCK_SIZE) {
+                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpHeight < 4.5 * Game.BLOCK_SIZE) {
                     playerCharacter.setImage(images.get((double) 12));
                     playerCharacter.setTranslateY(playerCharacter.getTranslateY() - speedOfCharacter);
-                    jumpLimit = jumpLimit + speedOfCharacter;
+                    jumpHeight = jumpHeight + speedOfCharacter;
                 } else {
                     if (noCollide(IntersectionLine.DOWN, playerCharacter)) {
                         playerCharacter.setImage(images.get((double) 13));
