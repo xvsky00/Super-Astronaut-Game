@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ public class PlayerCharacter extends Character {
     private final Map<Double, Image> images;
     private final double speedOfCharacter;
     private static double jumpHeight;
+    private static double previousJumpHeight;
 
     public PlayerCharacter(Scene scene) {
         this.images = new HashMap<>();
@@ -31,6 +31,7 @@ public class PlayerCharacter extends Character {
         this.speedOfCharacter = 8;
         World.layout.getChildren().add(getCharacter());
         jumpHeight = 0;
+        previousJumpHeight= -1;
     }
 
     public ImageView getCharacter() {
@@ -61,6 +62,10 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
+                if(pressedKeys.getOrDefault(KeyCode.SPACE, false)) {
+                    World.ultimateSkill.start(scene);
+                }
+
                 if (pressedKeys.getOrDefault(KeyCode.RIGHT, false)) {
                     runAnimation(playerCharacter, images);
                     playerCharacter.setScaleX(2.0);
@@ -76,18 +81,22 @@ public class PlayerCharacter extends Character {
 
                 if (!noCollide(IntersectionLine.DOWN, playerCharacter)) {
                     jumpHeight = 0;
+                    previousJumpHeight = -1;
                 } else if (!noCollide(IntersectionLine.UP, playerCharacter)) {
                     jumpHeight = 4.5 * Game.BLOCK_SIZE;
+                    previousJumpHeight = 4.5 * Game.BLOCK_SIZE;
                 }
 
-                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpHeight < 4.5 * Game.BLOCK_SIZE) {
+                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpHeight < 4.5 * Game.BLOCK_SIZE && jumpHeight > previousJumpHeight) {
                     playerCharacter.setImage(images.get((double) 12));
                     playerCharacter.setTranslateY(playerCharacter.getTranslateY() - speedOfCharacter);
+                    previousJumpHeight = jumpHeight;
                     jumpHeight = jumpHeight + speedOfCharacter;
                 } else {
                     if (noCollide(IntersectionLine.DOWN, playerCharacter)) {
                         playerCharacter.setImage(images.get((double) 13));
                         playerCharacter.setTranslateY(playerCharacter.getTranslateY() + speedOfCharacter);
+                        jumpHeight = jumpHeight - speedOfCharacter;
                     }
                 }
 

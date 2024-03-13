@@ -15,6 +15,7 @@ public class World {
     public static EnemyCharacter enemyCharacter_2;
     public static EnemyCharacter enemyCharacter_3;
     public static EnemyCharacter enemyCharacter_4;
+    public static UltimateSkill ultimateSkill;
     public static Scene scene;
 
 
@@ -33,6 +34,8 @@ public class World {
         enemyCharacter_3 = new EnemyCharacter(scene, 41 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         enemyCharacter_4 = new EnemyCharacter(scene, 25 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         playerCharacter = new PlayerCharacter(scene);
+        ultimateSkill = new UltimateSkill();
+
     }
 
     public Scene getScene() {
