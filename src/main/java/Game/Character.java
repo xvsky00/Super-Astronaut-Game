@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-
 import java.util.Map;
 
 public abstract class Character {
@@ -47,7 +46,7 @@ public abstract class Character {
         }
     }
 
-    protected boolean noCollide(IntersectionLine intersectionLine, ImageView character) {
+    protected boolean collide(IntersectionLine intersectionLine, ImageView character) {
         Rectangle2D intersectLine = null;
 
         switch (intersectionLine) {
@@ -68,11 +67,11 @@ public abstract class Character {
         for (Node node : World.layout.getChildren()) {
             Rectangle2D rect = new Rectangle2D(node.getTranslateX(), node.getTranslateY(), Game.BLOCK_SIZE, Game.BLOCK_SIZE);
             if (node.getClass() == Block.class && rect.intersects(intersectLine)) {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     public void isAlive(boolean a) {

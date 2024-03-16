@@ -53,7 +53,7 @@ public class PlayerCharacter extends Character {
                     runAnimation(playerCharacter, images);
                     playerCharacter.setScaleX(-2.0);
 
-                    if (noCollide(IntersectionLine.LEFT, playerCharacter)) {
+                    if (!collide(IntersectionLine.LEFT, playerCharacter)) {
                         playerCharacter.setTranslateX(playerCharacter.getTranslateX() - speedOfCharacter);
 
                         if (playerCharacter.getTranslateX() - scene.getCamera().getTranslateX() <= 8 * Game.BLOCK_SIZE && playerCharacter.getTranslateX() > 8 * Game.BLOCK_SIZE) {
@@ -70,7 +70,7 @@ public class PlayerCharacter extends Character {
                     runAnimation(playerCharacter, images);
                     playerCharacter.setScaleX(2.0);
 
-                    if (noCollide(IntersectionLine.RIGHT, playerCharacter)) {
+                    if (!collide(IntersectionLine.RIGHT, playerCharacter)) {
                         playerCharacter.setTranslateX(playerCharacter.getTranslateX() + speedOfCharacter);
 
                         if (playerCharacter.getTranslateX() - scene.getCamera().getTranslateX() >= scene.getWidth() - 7 * Game.BLOCK_SIZE - Game.PLAYER_SIZE && playerCharacter.getTranslateX() < 205 * Game.BLOCK_SIZE) {
@@ -79,21 +79,21 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-                if (!noCollide(IntersectionLine.DOWN, playerCharacter)) {
+                if (collide(IntersectionLine.DOWN, playerCharacter)) {
                     jumpHeight = 0;
                     previousJumpHeight = -1;
-                } else if (!noCollide(IntersectionLine.UP, playerCharacter)) {
+                } else if (collide(IntersectionLine.UP, playerCharacter)) {
                     jumpHeight = 4.5 * Game.BLOCK_SIZE;
                     previousJumpHeight = 4.5 * Game.BLOCK_SIZE;
                 }
 
-                if (pressedKeys.getOrDefault(KeyCode.UP, false) && noCollide(IntersectionLine.UP, playerCharacter) && jumpHeight < 4.5 * Game.BLOCK_SIZE && jumpHeight > previousJumpHeight) {
+                if (pressedKeys.getOrDefault(KeyCode.UP, false) && !collide(IntersectionLine.UP, playerCharacter) && jumpHeight < 4.5 * Game.BLOCK_SIZE && jumpHeight > previousJumpHeight) {
                     playerCharacter.setImage(images.get((double) 12));
                     playerCharacter.setTranslateY(playerCharacter.getTranslateY() - speedOfCharacter);
                     previousJumpHeight = jumpHeight;
                     jumpHeight = jumpHeight + speedOfCharacter;
                 } else {
-                    if (noCollide(IntersectionLine.DOWN, playerCharacter)) {
+                    if (!collide(IntersectionLine.DOWN, playerCharacter)) {
                         playerCharacter.setImage(images.get((double) 13));
                         playerCharacter.setTranslateY(playerCharacter.getTranslateY() + speedOfCharacter);
                         jumpHeight = jumpHeight - speedOfCharacter;

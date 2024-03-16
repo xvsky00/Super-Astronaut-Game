@@ -49,6 +49,7 @@ public class World {
         enemyCharacter_3.reset(scene, 41 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         enemyCharacter_4.reset(scene, 25 * Game.BLOCK_SIZE, 12 * Game.BLOCK_SIZE);
         playerCharacter.reset(scene);
+        ultimateSkill.reset();
     }
 
     private void initContent() {

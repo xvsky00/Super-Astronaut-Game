@@ -15,7 +15,7 @@ public class Block extends Pane {
     }
 
     public Block(BlockType blockType, int x, int y) {
-        this.blocksImg = new Image(getClass().getResourceAsStream("/1.png"));
+        this.blocksImg = new Image("file:1.png");
         this.block = new ImageView(blocksImg);
         this.block.setFitWidth(Game.BLOCK_SIZE);
         this.block.setFitHeight(Game.BLOCK_SIZE);
@@ -42,7 +42,7 @@ public class Block extends Pane {
                 break;
             case INVISIBLE_BLOCK:
                 this.block.setViewport(new Rectangle2D(0, 0, 16, 16));
-                this.block.setOpacity(0);
+                this.setOpacity(0);
                 break;
             case STONE:
                 this.block.setViewport(new Rectangle2D(0, 16, 16, 16));
@@ -51,5 +51,8 @@ public class Block extends Pane {
 
         this.getChildren().add(this.block);
         World.layout.getChildren().add(this);
+
+
     }
 }
+

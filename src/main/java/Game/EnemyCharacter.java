@@ -12,6 +12,7 @@ public class EnemyCharacter extends Character {
     private final ImageView enemyCharacter;
     private final Map<Double, Image> images;
     private double speedOfCharacter;
+    private static Rectangle2D shape;
 
     public EnemyCharacter(Scene scene, int xCord, int yCord) {
         this.images = new HashMap<>();
@@ -23,6 +24,7 @@ public class EnemyCharacter extends Character {
         this.enemyCharacter.setTranslateX(xCord);
         this.enemyCharacter.setTranslateY(yCord);
         this.enemyCharacter.setRotate(0);
+        shape = new Rectangle2D(this.enemyCharacter.getTranslateX(), this.enemyCharacter.getTranslateY(), Game.PLAYER_SIZE, Game.PLAYER_SIZE);
         move(scene);
         this.speedOfCharacter = 5;
         World.layout.getChildren().add(getCharacter());
@@ -42,23 +44,23 @@ public class EnemyCharacter extends Character {
                 enemyCharacter.setTranslateX(enemyCharacter.getTranslateX() + speedOfCharacter);
                 runAnimation(enemyCharacter, images);
 
-                if (!noCollide(IntersectionLine.RIGHT, enemyCharacter)) {
+                if (collide(IntersectionLine.RIGHT, enemyCharacter)) {
                     speedOfCharacter = -1 * speedOfCharacter;
                     enemyCharacter.setScaleX(-2.0);
-                } else if (!noCollide(IntersectionLine.LEFT, enemyCharacter)) {
+                } else if (collide(IntersectionLine.LEFT, enemyCharacter)) {
                     speedOfCharacter = -1 * speedOfCharacter;
                     enemyCharacter.setScaleX(2.0);
-                } else if (noCollide(IntersectionLine.DOWN, enemyCharacter)) {
+                } else if (!collide(IntersectionLine.DOWN, enemyCharacter)) {
                     enemyCharacter.setImage(images.get((double) 13));
                     enemyCharacter.setTranslateY(enemyCharacter.getTranslateY() + speedOfCharacter);
-                } else if (CollideWithPlayerCharacter(IntersectionLine.UP, World.playerCharacter.getCharacter()) && !CollideWithPlayerCharacter(IntersectionLine.RIGHT, World.playerCharacter.getCharacter()) && !CollideWithPlayerCharacter(IntersectionLine.LEFT, World.playerCharacter.getCharacter())) {
+                } else if (collideWithUltimateSkill() || collideWithPlayerCharacter(IntersectionLine.UP, World.playerCharacter.getCharacter())) {
                     stop();
                     isAlive(false);
                     enemyCharacter.setScaleY(1.0);
                     enemyCharacter.setTranslateY(enemyCharacter.getTranslateY() + 16);
                 }
 
-                if (CollideWithPlayerCharacter(IntersectionLine.RIGHT, World.playerCharacter.getCharacter()) | CollideWithPlayerCharacter(IntersectionLine.LEFT, World.playerCharacter.getCharacter())) {
+                if (collideWithPlayerCharacter(IntersectionLine.RIGHT, World.playerCharacter.getCharacter()) | collideWithPlayerCharacter(IntersectionLine.LEFT, World.playerCharacter.getCharacter())) {
                     stop();
                     World.playerCharacter.isAlive(false);
                     isAlive(false);
@@ -74,7 +76,7 @@ public class EnemyCharacter extends Character {
         }.start();
     }
 
-    protected boolean CollideWithPlayerCharacter(IntersectionLine intersectionLine, ImageView playerCharacter) {
+    protected boolean collideWithPlayerCharacter(IntersectionLine intersectionLine, ImageView playerCharacter) {
         Rectangle2D intersectLine = null;
         Rectangle2D playerIntersectLine = new Rectangle2D(playerCharacter.getTranslateX(), playerCharacter.getTranslateY(), Game.PLAYER_SIZE, Game.PLAYER_SIZE);
 
@@ -91,6 +93,10 @@ public class EnemyCharacter extends Character {
         }
 
         return playerIntersectLine.intersects(intersectLine);
+    }
+
+    protected boolean collideWithUltimateSkill() {
+        return shape.intersects(World.ultimateSkill.getShape());
     }
 
     public void reset(Scene scene, int xCord, int yCord) {
